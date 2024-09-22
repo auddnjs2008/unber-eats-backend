@@ -1,11 +1,9 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import * as jwt from 'jsonwebtoken';
 import { Injectable } from '@nestjs/common';
 import { CreateAccountInput, CreateAccountOutput } from './dtos/create-account.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
-import { ConfigService } from '@nestjs/config';
 import { JwtService } from 'src/jwt/jwt.service';
 import { EditProfileInput, EditProfileOutput } from './dtos/edit-profile.dto';
 import { Verification } from './entities/verification.entity';
@@ -75,21 +73,18 @@ export class UsersService {
         }catch(error){
             return {
                 ok:false,
-                error
+                error:'Cant log user in'
             }
         }
     }
 
     async findById(id:number):Promise<UserProfileOutput>{
         try{
-            const user = await this.users.findOne({where:{id}});
-            if(user){
-                return {
-                    ok: true,
-                    user
-                }
+            const user = await this.users.findOneOrFail({where:{id}});
+            return {
+                ok: true,
+                user
             }
-
         }catch(error){
             return {ok:false, error:' User Not Found'};
         }
