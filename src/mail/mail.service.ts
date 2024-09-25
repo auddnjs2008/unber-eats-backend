@@ -10,7 +10,7 @@ export class MailService {
     ){
     }
 
-    private async sendEmail(subject:string, template:string,emailVars:EmailVar[]){
+     async sendEmail(subject:string, template:string,emailVars:EmailVar[]):Promise<boolean>{
         const form = new FormData();
         form.append('from', `KMW from Nuber Eats <mailgun@${this.options.domain}>`);
         form.append('to',`${this.options.fromEmail}`);
@@ -26,8 +26,9 @@ export class MailService {
             method:'POST',
             body:form
         });
+        return true;
         }catch(error){
-            console.log(error);
+            return false;
         }
     }
 
