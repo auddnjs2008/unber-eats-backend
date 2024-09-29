@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { CreateAccountInput, CreateAccountOutput } from './dtos/create-account.dto';
 import { LoginInput, LoginOutput } from './dtos/login.dto';
@@ -94,6 +94,11 @@ export class UsersService {
        try{
             const user = await this.users.findOne({where:{id:userId}});
             if(email){
+                const exist = await this.users.exists({where:{email,id:Not(userId)}});
+                if(exist){
+                    return {ok: false, error :'The other user already has the same email'}
+                }
+                await this.verifications.delete({user:{id:user.id}})
                 user.email = email;
                 user.verified = false;
                 const verification = await this.verifications.save(this.verifications.create({user}));
@@ -110,6 +115,7 @@ export class UsersService {
                 ok:true,
             }
        }catch(error){
+        console.log(error);
             return {ok:false, error :'Could not update profile'};
        }
     }
