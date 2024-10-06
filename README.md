@@ -19,3 +19,28 @@ The Backend of Nuber Eats cLone
 - See Profile
 - Edit Profile
 - Verify Email
+
+
+## Restaurant Model
+
+- name
+- category
+- address
+- coverImage
+
+
+# Number Eats
+
+-See Categories
+-See Restaurants by Category (pagination)
+
+-See Restaurants  (pagination)
+-See REstaurant
+
+-Edit Restaurant
+-Delete Restaurant
+
+-Create Dish
+-Edit Dish
+-Delete Dish
+
