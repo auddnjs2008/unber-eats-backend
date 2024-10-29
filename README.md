@@ -50,3 +50,8 @@ The Backend of Nuber Eats cLone
     -Pending Orders (Owner) (subscription:newOrder )(trigger: createOrder(newOrder))
     -Order Status (Customer, Delivery, OWner) (s: orderUpdate)(t: editOrder(orderUpdate))
     -Pending Pickup Order (Deliver) (s: orderUpdate) (t: editOrder(orderUpdate))
+
+
+
+    Paddle - 소프트웨어와 디지털 내용만 팔 수 있다. 
+    

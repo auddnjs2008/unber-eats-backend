@@ -145,11 +145,14 @@ export class RestaurantService {
             const restaurants = await this.restaurants.find({
                 where:{
                     category:{
-                        id:category.id
-                    }
+                        id:category.id,
+                    },
                 },
                 take:25,
-                skip: (page-1)*25
+                skip: (page-1)*25,
+                order:{
+                    isPromoted:'DESC',
+                 } 
             })
             category.restaurants = restaurants;
             const totalResults =await this.countRestaurants(category)
@@ -172,7 +175,13 @@ export class RestaurantService {
 
     async allRestaurants({page}:RestaurantsInput):Promise<RestaurantsOutput>{
         try{
-            const [restaurants,totalResult] = await this.restaurants.findAndCount({skip:(page-1)*25,take:25});
+            const [restaurants,totalResult] = await this.restaurants.findAndCount(
+                {skip:(page-1)*25,
+                 take:25,
+                 order:{
+                    isPromoted:'DESC',
+                 }   
+                });
         
             return {
                 ok:true,

@@ -21,6 +21,9 @@ import { OrdersModule } from './orders/orders.module';
 import { Order } from './orders/entities/order.entity';
 import { OrderItem } from './orders/entities/order-item.entity';
 import { Context } from 'graphql-ws';
+import { PaymentsModule } from './payments/payments.module';
+import { Payment } from './payments/entities/payment.entity';
+import { ScheduleModule } from '@nestjs/schedule';
 
 
 
@@ -54,7 +57,7 @@ import { Context } from 'graphql-ws';
       database: process.env.DB_NAME,
       synchronize: process.env.NODE_ENV !== 'prod',
       logging:process.env.NODE_ENV !== 'prod' && process.env.NODE_ENV !== 'test',
-      entities:[User,Verification,Restaurant,Category,Dish,Order,OrderItem]
+      entities:[User,Verification,Restaurant,Category,Dish,Order,OrderItem,Payment]
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       // installSubscriptionHandlers:true,
@@ -72,6 +75,7 @@ import { Context } from 'graphql-ws';
         }
       }
     }),
+    ScheduleModule.forRoot(),
     JwtModule.forRoot({
       privateKey:process.env.SECRET_KEY
     }),
@@ -85,7 +89,8 @@ import { Context } from 'graphql-ws';
     MailModule,
     RestaurantsModule,
     OrdersModule,
-    CommonModule
+    CommonModule,
+    PaymentsModule
   ],
   controllers: [],
   providers: [],
