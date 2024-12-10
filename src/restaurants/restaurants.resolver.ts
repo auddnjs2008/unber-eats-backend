@@ -35,19 +35,19 @@ export class RestaurantResolver {
       @AuthUser() authUser: User,
     @Args('input') createRestaurantInput: CreateRestaurantInput
    ):Promise<CreateRestaurantOutput> {
-        return await this.restaurantService.createRestaurant(authUser, createRestaurantInput);
+        return  this.restaurantService.createRestaurant(authUser, createRestaurantInput);
    }
 
    @Query(returns => MyRestaurantsOutput)
    @Role(['Owner'])
-   async myRestaurants(@AuthUser() owner:User):Promise<MyRestaurantsOutput>{
-      return await this.restaurantService.myRestaurants(owner);
+   myRestaurants(@AuthUser() owner:User):Promise<MyRestaurantsOutput>{
+      return  this.restaurantService.myRestaurants(owner);
    }
 
    @Query(returns => MyRestaurantOutput)
    @Role(['Owner'])
-   async myRestaurant(@AuthUser() owner:User,myRestaurantInput:MyRestaurantInput):Promise<MyRestaurantOutput>{
-      return await this.restaurantService.myRestaurant(owner,myRestaurantInput);
+   myRestaurant(@AuthUser() owner:User,myRestaurantInput:MyRestaurantInput):Promise<MyRestaurantOutput>{
+      return  this.restaurantService.myRestaurant(owner,myRestaurantInput);
    }
 
 

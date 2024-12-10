@@ -6,6 +6,6 @@ import { CoreOutput } from 'src/common/dtos/output.dto';
 @ObjectType()
 export class MyRestaurantsOutput extends CoreOutput {
 
-    @Field(type => Restaurant, {nullable:true})
+    @Field(type => [Restaurant], {nullable:true})
     restaurants?:Restaurant[];
 }

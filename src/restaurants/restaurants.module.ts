@@ -6,6 +6,7 @@ import { RestaurantService } from './restuarants.service';
 import { Category } from './entities/category.entity';
 import { CategoryRepository } from './repositories/category.repository';
 import { Dish } from './entities/dish.entity';
+import { User } from 'src/users/entities/user.entity';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Restaurant, Dish , CategoryRepository])],

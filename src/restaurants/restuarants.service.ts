@@ -50,12 +50,15 @@ export class RestaurantService {
 
     async myRestaurants(owner:User):Promise<MyRestaurantsOutput>{
         try{
-           const restaurants = await this.restaurants.find({where:{id:owner.id}});
-           return {
-            restaurants,
-            ok:true
-           } 
-        }catch{
+            const restaurants = await this.restaurants.find({where:{owner:{id:owner.id}}});        
+            console.log(restaurants[0]);
+        
+            return {
+                restaurants,
+                ok:true
+            } 
+        }catch(error){
+            console.log(error,'error');
             return {
                 ok:false,
                 error:'Could not GET Restaurant'
