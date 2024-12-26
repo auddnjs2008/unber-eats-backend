@@ -39,8 +39,8 @@ export class Restaurant extends CoreEntity {
     owner:User;
 
 
-    @Field(type => [Order])
-    @OneToMany(type => Order, order => order.restaurant)
+    @Field(type => [Order],{nullable:true})
+    @OneToMany(type => Order, order => order.restaurant,{nullable:true})
     orders: Order[];
 
 

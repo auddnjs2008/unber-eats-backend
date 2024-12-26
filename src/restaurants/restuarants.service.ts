@@ -39,6 +39,7 @@ export class RestaurantService {
         await  this.restaurants.save(newRestuarant);
         return {
             ok:true,
+            restaurantId:newRestuarant.id,
         }
        }catch{
              return {
@@ -70,7 +71,8 @@ export class RestaurantService {
 
     async myRestaurant(owner:User, myRestaurant:MyRestaurantInput):Promise<MyRestaurantOutput>{
         try{
-          const restaurant = await this.restaurants.findOne({where:{id:myRestaurant.id}});
+          const restaurant = await this.restaurants.findOne({where:{id:myRestaurant.id,owner:{id:owner.id}},relations:['menu','orders']});
+          console.log(restaurant,'restaurant');
           return {
             ok:true,
             restaurant,
